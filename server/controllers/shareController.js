@@ -39,6 +39,7 @@ exports.shareSummary = async (req, res, next) => {
       subject: subject || 'Meeting Summary',
       text: contentToSend,
       html: htmlContent
+    })
 
     // Record share history
     const shareRecord = new ShareHistory({
