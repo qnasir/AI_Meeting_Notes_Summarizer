@@ -1,10 +1,12 @@
 const Summary = require('../models/Summary');
 const ShareHistory = require('../models/ShareHistory');
 const transporter = require('../utils/emailService');
+const { marked } = require('marked');
 
 exports.shareSummary = async (req, res, next) => {
   try {
-    const { summaryId, editedSummary, recipients, subject } = req.body;
+
+    const { summaryId, editedSummary, message, recipients, subject } = req.body;
 
     // Validate input
     if (!summaryId || !recipients || !Array.isArray(recipients)) {
@@ -25,6 +27,10 @@ exports.shareSummary = async (req, res, next) => {
     // Get the summary content
     const summary = await Summary.findById(summaryId);
     const contentToSend = editedSummary || summary.summary;
+    const htmlContent = `
+      <p>${message}</p>
+      ${marked(contentToSend)}
+    `;
 
     // Send email
     await transporter.sendMail({
@@ -32,7 +38,7 @@ exports.shareSummary = async (req, res, next) => {
       to: recipients.join(', '),
       subject: subject || 'Meeting Summary',
       text: contentToSend,
-      html: `<pre>${contentToSend}</pre>`
+      html: htmlContent
     });
 
     // Record share history

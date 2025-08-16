@@ -11,6 +11,7 @@ const Index = () => {
   const [transcript, setTranscript] = useState("");
   const [prompt, setPrompt] = useState("Summarize the key points and action items from this meeting");
   const [summary, setSummary] = useState("");
+  const [summaryId, setSummaryId] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const { toast } = useToast();
 
@@ -37,7 +38,7 @@ const Index = () => {
 
     try {
       // This would be your API call to generate summary
-      const response = await fetch("/api/generate-summary", {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}api/summaries`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +51,8 @@ const Index = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setSummary(data.summary);
+        setSummaryId(data.data.id);
+        setSummary(data.data.summary);
         toast({
           title: "Success",
           description: "Summary generated successfully",
@@ -122,18 +124,13 @@ const Index = () => {
           {/* Step 4: Email Sharing */}
           {summary && (
             <EmailShare
+              summaryId={summaryId}
               summary={summary}
               disabled={isGenerating}
             />
           )}
         </div>
 
-        {/* Footer */}
-        {/* <div className="text-center mt-12 pt-8 border-t">
-          <p className="text-sm text-muted-foreground">
-            Backend API endpoints needed: /api/generate-summary and /api/send-email
-          </p>
-        </div> */}
       </div>
     </div>
   );

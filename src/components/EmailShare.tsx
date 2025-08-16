@@ -8,11 +8,12 @@ import { Mail, Plus, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface EmailShareProps {
+  summaryId: string;
   summary: string;
   disabled?: boolean;
 }
 
-export function EmailShare({ summary, disabled }: EmailShareProps) {
+export function EmailShare({ summaryId, summary, disabled }: EmailShareProps) {
   const [recipients, setRecipients] = useState<string[]>([""]);
   const [subject, setSubject] = useState("Meeting Summary");
   const [message, setMessage] = useState("Please find the meeting summary below:");
@@ -62,16 +63,17 @@ export function EmailShare({ summary, disabled }: EmailShareProps) {
 
     try {
       // This would be your API call to send emails
-      const response = await fetch("/api/send-email", {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}api/shares`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          summaryId,
           recipients: validEmails,
           subject,
           message,
-          summary
+          editedSummary: summary
         }),
       });
 
@@ -170,10 +172,6 @@ export function EmailShare({ summary, disabled }: EmailShareProps) {
         >
           {isLoading ? "Sending..." : "Send Summary"}
         </Button>
-
-        <p className="text-xs text-muted-foreground">
-          Note: This will call your backend API at /api/send-email
-        </p>
       </div>
     </Card>
   );
