@@ -4,7 +4,7 @@ const { generateSummaryWithAI } = require('../utils/groqClient');
 exports.generateSummary = async (req, res, next) => {
   try {
     const { prompt } = req.body;
-    const transcript = req.file ? req.file.buffer.toString() : req.body.text;
+    const transcript = req.file ? req.file.buffer.toString() : req.body.transcript;
 
     if (!transcript) {
       return res.status(400).json({ error: 'No transcript provided' });
