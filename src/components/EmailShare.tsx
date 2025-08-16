@@ -14,6 +14,7 @@ interface EmailShareProps {
 }
 
 export function EmailShare({ summaryId, summary, disabled }: EmailShareProps) {
+
   const [recipients, setRecipients] = useState<string[]>([""]);
   const [subject, setSubject] = useState("Meeting Summary");
   const [message, setMessage] = useState("Please find the meeting summary below:");
@@ -64,6 +65,7 @@ export function EmailShare({ summaryId, summary, disabled }: EmailShareProps) {
     try {
       // This would be your API call to send emails
       const response = await fetch(`${import.meta.env.VITE_BASE_URL}api/shares`, {
+
         method: "POST",
         headers: {
           "Content-Type": "application/json",

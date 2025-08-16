@@ -37,7 +37,6 @@ export function SummaryEditor({ summary, onSummaryChange, isLoading }: SummaryEd
   const toggleView = () => {
     setIsMarkdownView(!isMarkdownView);
   };
-
   if (isLoading) {
     return (
       <Card className="p-6">

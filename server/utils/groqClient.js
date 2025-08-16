@@ -38,3 +38,4 @@ export async function getGroqChatCompletion(transcript, prompt) {
     throw new Error("Failed to fetch chat completion");
   }
 }
+
