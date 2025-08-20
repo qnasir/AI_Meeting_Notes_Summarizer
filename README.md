@@ -4,6 +4,8 @@ A lightweight web app that allows users to upload transcripts (meeting notes, ca
 
 ---
 
+[https://ai-meeting-notes-summarizer-eight.vercel.app/](https://ai-meeting-notes-summarizer-eight.vercel.app/)
+
 ## 🚀 Features  
 
 - 📂 **Upload Transcript**: Upload plain text files (e.g., `.txt`) containing transcripts or notes.  
@@ -37,3 +39,8 @@ A lightweight web app that allows users to upload transcripts (meeting notes, ca
 ├── public           # Static assets
 ├── package.json
 └── README.md
+```
+
+### Contact
+
+For any queries, reach out to **Abdul Nasir Qureshi** at [**qnasir575@gmail.com**](mailto:qnasir575@gmail.com).
